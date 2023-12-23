@@ -7,10 +7,10 @@ import (
 	"time"
 )
 
-
-
 func main() {
-	runtime.GOMAXPROCS(16)
+
+	runtime.GOMAXPROCS(4)
+	fmt.Println(runtime.GOMAXPROCS(0))
 
 	links := []string{
 		"http://hashnode.com",
@@ -22,7 +22,6 @@ func main() {
 		"http://techcrunch.com",
 	}
 	c := make(chan string, len(links)) // create buffered channel large enough to hold all links
-
 
 	start := time.Now()
 

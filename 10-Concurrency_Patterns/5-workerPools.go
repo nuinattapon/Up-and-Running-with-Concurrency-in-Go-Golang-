@@ -8,8 +8,9 @@ import (
 )
 
 func main() {
+	start := time.Now()
 
-	const numJobs = 100                           // We have this number of jobs to complete
+	const numJobs = 100                          // We have this number of jobs to complete
 	jobsChan := make(chan int, numJobs)          // creates a buffered channel large enough to hold all jobs
 	completedJobsChan := make(chan int, numJobs) // creates a buffered channel large enough to hold all completed jobs
 
@@ -25,12 +26,16 @@ func main() {
 	for a := 1; a <= numJobs; a++ {
 		<-completedJobsChan // Reads the completedJobsChan channel and does nothing with the contents.  Point is to clear the channel and to delay termination of the program until all jobs are reported as finished.
 	}
+
+	close(completedJobsChan)
+	elapsed := time.Since(start)
+	fmt.Printf("Processes took %s", elapsed)
 }
 func worker(id int, jobsChan <-chan int, completedJobsChan chan<- int) { // this syntax restricts the direction of each channel.  For THIS specific function, we will only SEND to completedJobsChan and RECEIVE from jobsChan
 
 	for j := range jobsChan { // iterates (and RECEIVES) each and all the jobs in the channel.  Interesting that range seems to have its own receiver.
 		fmt.Println("worker", id, "started  job", j, "with", len(jobsChan), "jobs left to process")
-		time.Sleep(time.Second * 2) // simulates "work" that takes sleep time to complete
+		time.Sleep(time.Millisecond * 1000) // simulates "work" that takes sleep time to complete
 		fmt.Println("worker", id, "             finished job", j)
 		completedJobsChan <- j // Loads finished job numbers into the completedJobsChan channel.
 	}
