@@ -24,6 +24,6 @@ func main() {
 
 	go calculateSquare()
 	go reportResult()
-	<-mainChan // blocks until it can read something from mainChan - discarded
+	fmt.Println(<-mainChan) // blocks until it can read something from mainChan - discarded
 
 }

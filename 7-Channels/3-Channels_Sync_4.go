@@ -6,10 +6,9 @@ import (
 	"time"
 )
 
-
 func main() {
 	var wg sync.WaitGroup
-	for i := 1; i <= 10000; i++ {  // This allows us to create MANY goroutines
+	for i := 1; i <= 10000; i++ { // This allows us to create MANY goroutines
 		wg.Add(1)
 		go func(j int) {
 
@@ -17,7 +16,7 @@ func main() {
 			goChan := make(chan int)
 			mainChan := make(chan string)
 			calculateSquare := func() {
-				time.Sleep(time.Second * 3)  // Deliberate time delay
+				time.Sleep(time.Second * 3) // Deliberate time delay
 				result = j * j
 				goChan <- result
 			}

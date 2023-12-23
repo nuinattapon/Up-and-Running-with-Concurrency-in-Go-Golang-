@@ -6,13 +6,11 @@ import (
 	"time"
 )
 
-
-
 func main() {
 
 	var wg sync.WaitGroup
 	wg.Add(1)
-	go func() {  // This turns our entire process into one large goroutine.
+	go func() { // This turns our entire process into one large goroutine.
 		var value = 97
 		var result = 0
 		goChan := make(chan int)

@@ -8,11 +8,9 @@ import (
 	"time"
 )
 
-
-
 func main() {
 	fmt.Println(runtime.GOMAXPROCS(0))
-	runtime.GOMAXPROCS(16)   //  Extra processors help up to number of goroutines w CPU-bound tasks
+	runtime.GOMAXPROCS(runtime.GOMAXPROCS(0)) //  Extra processors help up to number of goroutines w CPU-bound tasks
 	c := make(chan string)
 	startTime := time.Now()
 	go counta(c)
@@ -24,20 +22,17 @@ func main() {
 	go countg(c)
 	go counth(c)
 
-
-
 	for i := 0; i < 8; i++ {
 		fmt.Println(<-c)
-		}
+	}
 
 	elapsed := time.Since(startTime)
 	fmt.Printf("Processes took %s", elapsed)
 }
 func counta(c chan string) {
 	fmt.Println("AAAA is starting  ")
-	for I := 1; I < 10_000_000_000; I ++ {
+	for I := 1; I < 10_000_000_000; I++ {
 	}
-
 
 	c <- "AAAA is done"
 
@@ -46,7 +41,6 @@ func countb(c chan string) {
 	fmt.Println("BBBB is starting  ")
 	for i := 1; i < 10_000_000_000; i++ {
 	}
-
 
 	c <- "BBBB is done"
 
@@ -58,13 +52,11 @@ func countc(c chan string) {
 
 	c <- "CCCC is done"
 
-
 }
 func countd(c chan string) {
 	fmt.Println("DDDD is starting     ")
 	for i := 1; i < 10_000_000_000; i++ {
 	}
-
 
 	c <- "DDDD is done"
 
@@ -76,13 +68,11 @@ func counte(c chan string) {
 
 	c <- "EEEE is done"
 
-
 }
 func countf(c chan string) {
 	fmt.Println("FFFF is starting     ")
 	for i := 1; i < 10_000_000_000; i++ {
 	}
-
 
 	c <- "FFFF is done"
 
@@ -94,7 +84,6 @@ func countg(c chan string) {
 
 	c <- "GGGG is done"
 
-
 }
 func counth(c chan string) {
 	fmt.Println("HHHH is starting     ")
@@ -102,6 +91,5 @@ func counth(c chan string) {
 	}
 
 	c <- "HHHH is done"
-
 
 }

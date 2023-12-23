@@ -13,7 +13,7 @@ func main() {
 	mainChan := make(chan string)
 	go calculateSquare(value, goChan)
 	go reportResult(goChan, mainChan)
-	<-mainChan // blocks until it can read something from mainChan - discarded
+	fmt.Println(<-mainChan) // blocks until it can read something from mainChan - discarded
 }
 func calculateSquare(value int, goChan chan int) {
 	fmt.Println("Calculating for 3 seconds...")
